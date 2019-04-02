@@ -10,9 +10,10 @@
 
 		$(options.pokerCardsShowButton).on('click', function(event) {
 			var pushData = {
-				type: 'show-cards'
+				type: 'show-cards',
+				channel: window.channel
 			};
-			window.managedSocket.send(JSON.stringify(pushData));
+			window.managedSocket.emit(pushData.type, pushData);
 		});
 
 		$(options.pokerCardsResetButton).on('click', function(event) {
@@ -22,9 +23,10 @@
 			reallyDelete = confirm(options["i18n"]["cards-reset-confirm"]);
 			if (reallyDelete) {
 				var pushData = {
-					type: 'reset-cards'
+					type: 'reset-cards',
+					channel: window.channel
 				};
-				window.managedSocket.send(JSON.stringify(pushData));
+				window.managedSocket.emit(pushData.type, pushData);
 			}
 		});
 
@@ -35,21 +37,22 @@
 			reallyReset = confirm(options["i18n"]["room-reset-confirm"]);
 			if (reallyReset) {
 				pushData = {
-						type: 'reset-room'
+						type: 'reset-room',
+						channel: window.channel
 				};
-				window.managedSocket.send(JSON.stringify(pushData));
+				window.managedSocket.emit(pushData.type, pushData);
 			}
 		});
 
 		listeners = $({});
 
-		listeners.on('reset-room', function(event, message) {
+		window.managedSocket.on('reset-room', function(message) {
 			// Type: 'reset-room'
 			// So far this is the only type this module supports, so there is no need for a use case yet
 			$(options.userstory).hide(400);
 		});
 
-		listeners.on('show-cards', function(event, message) {
+		window.managedSocket.on('show-cards', function(message) {
 			$('.' + options.showCardsSelectorClass).removeClass(options.showCardsToggleClass);
 			$(options.pokerCardsShowButton).attr('disabled', 'disabled');
 		});

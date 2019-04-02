@@ -1,6 +1,15 @@
 var socket = $.WebSocket(options);
-
-var loginListener = $('#poker-login-form').login({
+$(document).ready(function() {
+    
+    //loadJIRA('SS-13542');
+});
+function loadJIRA(id) {
+    
+    $.ajax({
+        url: 'http://jira-web:8080/rest/api/latest/issue/' + id
+    })
+}
+$('#poker-login-form').login({
     overlay: '.poker-overlay',
     userInfoClass: '.poker-userinfo',
     nameClass: '.poker-userinfo-name',
@@ -14,8 +23,8 @@ var loginListener = $('#poker-login-form').login({
             show: []
         },
         scrumMaster: {
-            hide: ['.scrum-developer', '.scrum-product-owner'],
-            show: ['.scrum-master']
+            hide: ['.scrum-developer'],
+            show: ['.scrum-master', '.scrum-product-owner']
         },
         productOwner: {
             hide: ['.scrum-developer', '.scrum-master'],
@@ -38,9 +47,9 @@ $('.poker-cards').cardselection({
     pokerCardBackClass: '.poker-card-back'
 });
 
-var chatListener = $('.poker-chat').chat();
+$('.poker-chat').chat();
 
-var scrumMasterListener = $('.scrum-master').scrumMaster({
+$('.scrum-master').scrumMaster({
     pokerCardsShowButton: '#poker-cards-show-button',
     pokerCardsResetButton: '#poker-cards-reset-button',
     pokerRoomResetButton: '#poker-room-reset',
@@ -57,16 +66,16 @@ $('.scrum-product-owner').productOwner({
     userStoryText: '#poker-userstory-text'
 });
 
-var userlistListener = $('.poker-users-online').userlist({
+$('.poker-users-online').userlist({
     availableRoles: options.availableRoles
 });
 
-var userstoryListener = $('.poker-userstory').userstory({
+$('.poker-userstory').userstory({
     userstoryText: '#poker-userstory-text',
     editUserStoryButton: '#poker-userstory-edit-button',
 });
 
-var carddisplayListener = $('.poker-felt').carddisplay({
+$('.poker-felt').carddisplay({
     pokerCardsShowButton: '#poker-cards-show-button',
     pokerCardSelectedClass: 'poker-card-selected',
 });
@@ -80,12 +89,4 @@ socketOptions.elements = {
     notification: '#poker-notification',
     loaderBackgroundClass: options.loaderBackgroundClass,
 };
-socketOptions.listeners = [
-    loginListener,
-    scrumMasterListener,
-    chatListener,
-    userlistListener,
-    userstoryListener,
-    carddisplayListener
-];
 socket.setOptions(socketOptions);

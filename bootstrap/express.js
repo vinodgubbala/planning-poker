@@ -38,11 +38,13 @@ BootstrapExpress.prototype.createApp = function() {
 BootstrapExpress.prototype.configureRoutes = function() {
     var server = this;
     this.app.get('/', function(req, res) {
+
         res.render(
             'index.html',
             {
                 web: server.config.http,
-                cards: server.config.cards
+                cards: server.config.cards,
+                room: req.query.room || 'global'
             }
         );
         res.end();

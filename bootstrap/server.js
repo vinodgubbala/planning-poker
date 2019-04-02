@@ -1,6 +1,5 @@
-var WebSocketServer = require('websocket').server,
-    express = require('./express.js');
-    
+var express = require('./express.js');
+    socketIo = require('socket.io');
 BootstrapServer = function() {};
 
 BootstrapServer.getInstance = function() {
@@ -22,25 +21,26 @@ BootstrapServer.prototype.bootstrap = function(http, config) {
     this.config = config;
     
     this.createExpressApp();
-    this.createHttpServer();
+    this.createHttpServer(http);
     this.createWebsocketServer();
     
-    return this.websocketServer;
+    return this.socketServer;
 };
 
 BootstrapServer.prototype.createExpressApp = function() {
     this.expressApp = express.bootstrap(this.config);
 };
 
-BootstrapServer.prototype.createHttpServer = function() {
+BootstrapServer.prototype.createHttpServer = function(http) {
     this.httpServer = http.createServer(this.expressApp);
 };
 
 BootstrapServer.prototype.createWebsocketServer = function() {
-    this.websocketServer = new WebSocketServer({
+    /*this.websocketServer = new WebSocketServer({
         httpServer: this.httpServer,
         autoAcceptConnections: false
-    });
+    });*/
+    this.socketServer = socketIo(this.httpServer)
 };
 
 BootstrapServer.prototype.run = function() {

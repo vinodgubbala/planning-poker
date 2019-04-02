@@ -22,10 +22,11 @@
 			postUserStoryTextarea = $(options.postUserStoryTextarea);
 			postUserstoryData = {
 				type: 'post-userstory',
+				channel: window.channel,
 				userstory: postUserStoryTextarea.val()
 			}
 
-			window.managedSocket.send(JSON.stringify(postUserstoryData));
+			window.managedSocket.emit(postUserstoryData.type, postUserstoryData);
 			postUserStoryTextarea.val("");
 			$(options.editUserStoryButton).removeAttr('disabled');
 		});

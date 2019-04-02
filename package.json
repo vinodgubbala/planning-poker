@@ -3,6 +3,10 @@
     "version": "0.4.4",
     "description": "An online planning poker tool based on node.js and Websockets",
     "main": "poker-server.js",
+    "scripts": {
+        "start": "node poker-server.js",
+        "start:dev": "set DEBUG='*' & node poker-server.js"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/djungowski/planning-poker"
@@ -11,11 +15,11 @@
         "name": "Dominik Jungowski"
     },
     "dependencies": {
-        "express":      "^3.9.0",
-        "ejs":          "^1.0.0",
-        "iniparser":    "^1.0.5",
-        "websocket":    "^1.0.8",
-        "i18n":         "^0.4.1",
-        "jasmine-node": "^1.14.3"
+        "ejs": "^1.0.0",
+        "express": "^3.9.0",
+        "i18n": "^0.4.1",
+        "iniparser": "^1.0.5",
+        "jasmine-node": "^1.14.3",
+        "socket.io": "2.2.0"
     }
 }

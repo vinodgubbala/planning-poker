@@ -1,8 +1,8 @@
 (function($, jQuery) {
 	jQuery.fn.cardselection = function(options) {
+		var el = this;
 		options = jQuery.extend({}, jQuery.fn.cardselection.options, options);
-
-		this.on('click', function(event) {
+		el.on('click', function(event) {
 			var socket,
 				cardValue,
 				user,
@@ -23,12 +23,20 @@
 			socketData = {
 				type: 'play-card',
 				userId: user.id,
-				cardValue: cardValue
+				cardValue: cardValue,
+				userName: user.name
 			};
 
-			socket.send(JSON.stringify(socketData));
+			socket.emit(socketData.type, socketData);
 			$('.' + options.selectedClass).removeClass(options.selectedClass);
 			selectedCard.addClass(options.selectedClass);
+		})
+
+		window.managedSocket.on('selected-card', function(cardData) {
+			$(el).find('.poker-card').filter(function(idx) {
+				return this.innerHTML == cardData.card.cardValue;
+
+			}).addClass(options.selectedClass);
 		})
 	};
 

@@ -7,7 +7,7 @@
 		me = this;
 
 		listeners = $({});
-		listeners.on('carddisplay', function(event, message) {
+		window.managedSocket.on('carddisplay', function(message) {
 			jQuery.fn.carddisplay.showcards.call(me, message.data, options);
 		});
 		return listeners;
@@ -31,7 +31,8 @@
 		cards = cardsData.cards;
 		if (cardsData.show === false) {
 			cardsHiddenClass = 'poker-card-display-hidden';
-		}
+		} 
+		cardsData.show ?  $('.poker-cards').addClass('poker-cards-disabled') : $('.poker-cards').removeClass('poker-cards-disabled');
 
 		$(this).empty();
 		$(options.pokerCardsShowButton).attr('disabled', 'disabled');
@@ -55,8 +56,8 @@
 				'</div>');
 				$(this).append(card);
 			}
-			card.find('.poker-card-value').html(cards[userId]);
-			card.find('.poker-card-player').text(window.currentUsers[userId].name);
+			card.find('.poker-card-value').html(cards[userId].cardValue);
+			card.find('.poker-card-player').text(window.currentUsers[userId] ? window.currentUsers[userId].name : cards[userId].userName);
 
 			amountDevs = $('.poker-role-developer').length;
 			// Schauen, ob mind. 2 devs abgestimmt haben

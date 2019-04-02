@@ -33,7 +33,7 @@
 
 		listeners = $({});
 
-		listeners.on('login', function(event, data) {
+		window.managedSocket.on('login', function(data) {
 			var socketData;
 			localStorage.setItem(options.lsUserKey, JSON.stringify(data.user));
 			jQuery.fn.login.postLogin(data.user, options);
@@ -41,10 +41,10 @@
 			socketData = {
 				type: 'get-initial-data'
 			};
-			window.managedSocket.send(JSON.stringify(socketData));
+			window.managedSocket.emit(socketData.type, socketData);
 		});
 
-		listeners.on('open', function(event, wsEvent) {
+		window.managedSocket.on('connect', function() {
 			user = localStorage.getItem(options.lsUserKey);
 			if (user !== null) {
 				user = JSON.parse(user);
@@ -88,10 +88,11 @@
 
 		loginData = {
 			type: 'login',
+			channel: window.channel,
 			user: user
 		};
 
-		window.managedSocket.send(JSON.stringify(loginData));
+		window.managedSocket.emit(loginData.type, loginData);
 	};
 
 	jQuery.fn.login.postLogin = function(user, options) {

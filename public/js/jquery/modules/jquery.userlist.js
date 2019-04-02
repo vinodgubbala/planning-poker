@@ -7,7 +7,7 @@
 		me = $(this);
 
 		listeners = $({});
-		listeners.on('userlist', function(event, message) {
+		window.managedSocket.on('userlist', function(message) {
 			jQuery.fn.userlist.update.call(me, message.data, options);
 		});
 		return listeners;

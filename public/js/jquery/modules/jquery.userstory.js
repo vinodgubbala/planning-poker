@@ -2,16 +2,13 @@
 	jQuery.fn.userstory = function(options) {
 		options = jQuery.extend({}, jQuery.fn.userstory.options, options);
 
-		var me,
-			listeners;
+		var me = this;
 
-		me = this;
-
-		listeners = $({});
-		listeners.on('userstory', function(event, message) {
+		window.managedSocket.on('userstory', function(message) {
 			jQuery.fn.userstory.showstory.call(me, message.userstory, options);
 		})
-		return listeners;
+
+		
 	};
 
 	jQuery.fn.userstory.showstory = function(userstory, options) {

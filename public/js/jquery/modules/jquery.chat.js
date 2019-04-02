@@ -11,7 +11,7 @@
 
 		listeners = $({});
 
-		listeners.on('new-chat-message', function(event, data) {
+		window.managedSocket.on('new-chat-message', function(data) {
 			jQuery.fn.chat.receiveChatMessage(me, options, data);
 		});
 
@@ -86,9 +86,10 @@
 			if (messageText.replace(/ /g, "").length > 0) {
 				newMessage = {
 					type: 'post-chat-message',
+					channel: window.channel,
 					text: messageText
 				};
-				window.managedSocket.send(JSON.stringify(newMessage));
+				window.managedSocket.emit(newMessage.type, newMessage);
 			}
 		};
 

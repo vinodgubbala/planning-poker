@@ -20,6 +20,10 @@ h1 {
 	font-size: 1.5em;
 	margin: 20px 0 20px 0;
 }
+h1 .room-name {
+	font-size: 1em;
+	color: #089f47;
+}
 
 input, select {
 	border: 1px solid #f46200;
@@ -165,11 +169,12 @@ img {
 	border-radius: 5px;
 	margin-bottom: 10px;
 	padding: 40px;
-	height: 140px;
+	min-height: 140px;
 }
 
 .poker-felt .poker-card-display {
-	float: left;
+	/*float: left;*/
+	display: inline-block;
 	margin-right: 40px;
 }
 
@@ -202,6 +207,15 @@ img {
 .poker-cards {
 	clear: both;
 	padding-left: 17px;
+}
+
+.poker-cards.poker-cards-disabled .poker-card:hover {
+	cursor: not-allowed;
+	background-color: inherit;
+}
+
+.poker-cards.poker-cards-disabled .poker-card.poker-card-selected:hover {
+	background-color: #f46200;
 }
 
 .poker-card {
@@ -263,20 +277,46 @@ img {
 .poker-users {
 	font-weight: bold;
 	margin-bottom: 10px;
-	float: left;
+	display: flex;
+	align-items: center;
 }
 
 .poker-role {
 	background-repeat: no-repeat;
 	background-position: left center;
 	padding: 3px 5px 3px 18px;
+	display: flex;
+	flex-direction: row;
+	flex-flow: nowrap;
+	align-items: center;
+	
+}
+.poker-role:before {
+	content: '';
+	display: flex;
+	width: 20px;
+	height: 20px;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	border-width: 1px;
+	border-style: solid;
+	margin-right: 2px;
+	padding: 2px;
+	font-size: 0.7rem;
+    font-weight: bold;
+
+
 }
 
 .poker-users-online {
 	font-weight: normal;
 	margin-left: 3px;
+	display: flex;
+	flex-flow: row wrap;
+	flex: 1;
 }
-
+/*
 .poker-users-online .poker-role-developer {
 	background-image: url(/img/icon/monitor.png);
 }
@@ -291,8 +331,7 @@ img {
 
 .poker-users-online .poker-role-spectator {
 	background-image: url(/img/icon/globe.png);
-}
-
+}*/
 .poker-role-developer {
 	color: #f46200;
 }
@@ -309,8 +348,20 @@ img {
 	color: #c0c0c0;
 }
 
-.poker-users p {
-	float: left;
+.poker-users-online .poker-role-developer:before {
+	content: 'D';
+}
+
+.poker-users-online .poker-role-scrumMaster:before {
+	content: 'SM';
+}
+
+.poker-users-online .poker-role-productOwner:before {
+	content: 'PO';
+}
+
+.poker-users-online .poker-role-spectator:before {
+	content: 'S';
 }
 
 .poker-userstory {
@@ -351,6 +402,7 @@ img {
 /** Chat */
 .poker-chat {
 	float: right;
+	width: 50px;
 }
 
 .poker-chat-tray {
