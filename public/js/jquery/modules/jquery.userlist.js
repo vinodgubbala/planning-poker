@@ -1,7 +1,8 @@
 (function(jQuery, $) {
 	jQuery.fn.userlist = function(options) {
 		var me,
-			listeners;
+			listeners,
+			cardsData = null;
 
 		options = jQuery.extend({}, jQuery.fn.userlist.options, options);
 		me = $(this);
@@ -9,6 +10,13 @@
 		listeners = $({});
 		window.managedSocket.on('userlist', function(message) {
 			jQuery.fn.userlist.update.call(me, message.data, options);
+			if (cardsData) {
+				jQuery.fn.userlist.updateVotes.call(me, cardsData, options);	
+			}
+		});
+		window.managedSocket.on('carddisplay', function(message) {
+			jQuery.fn.userlist.updateVotes.call(me, message.data, options);
+			cardsData = message.data;
 		});
 		return listeners;
 	};
@@ -27,13 +35,21 @@
 		// sorted like we want it
 		for (var role in options.availableRoles) {
 			for (userId in userArray[role]) {
-				user = userArray[role][userId];
-				userArraySorted.push('<span class="poker-role poker-role-' + user.role + '">' + user.name.escape() + '</span>');
+				var user = userArray[role][userId];
+				userArraySorted.push('<span data-userid="' + user.id + '" class="poker-role not-voted poker-role-' + user.role + '">' + user.name.escape() + '</span>');
 			}
 		}
 		// Third: Set logged in users
 		$(this).html(userArraySorted.join(' '));
 	};
+
+	jQuery.fn.userlist.updateVotes = function(data, options) {
+		$('.poker-role').addClass('not-voted');
+		for (var userId in data.cards) {
+			var card = data.cards[userId];
+			$('.poker-role[data-userid=' + userId + ']').removeClass('not-voted');
+		}
+	}
 
 	jQuery.fn.userlist.sort = function(users, options) {
 		var userArray;

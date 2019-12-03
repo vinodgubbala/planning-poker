@@ -12,16 +12,6 @@
 		});
 		return listeners;
 	};
-
-	/**
-		<div class="poker-card-display poker-card-display-hidden">
-			<a class="poker-card">8</a>
-			<a class="poker-card poker-card-back">
-				<img src="img/inovex-logo.png" alt="" />
-			</a>
-			<span class="poker-card-player">Khalid</a>
-		</div>
-	*/
 	jQuery.fn.carddisplay.showcards = function(cardsData, options) {
 		var cardsTotal,
 			cards,
@@ -49,15 +39,14 @@
 			if (!card.is('div')) {
 				card = $('<div id="' + pokerCardId + '" class="poker-card-display ' + cardsHiddenClass + '">' +
 					'<a class="poker-card poker-card-value">#</a>' +
-					'<a class="poker-card poker-card-back">' +
-						'<img src="img/inovex-logo.png" alt="" />' +
-					'</a>' +
+					'<a class="poker-card poker-card-back"></a>' +
 					'<span class="poker-card-player">#</a>' +
 				'</div>');
 				$(this).append(card);
 			}
 			card.find('.poker-card-value').html(cards[userId].cardValue);
 			card.find('.poker-card-player').text(window.currentUsers[userId] ? window.currentUsers[userId].name : cards[userId].userName);
+			card.attr('title', window.currentUsers[userId] ? window.currentUsers[userId].name : cards[userId].userName);
 
 			amountDevs = $('.poker-role-developer').length;
 			// Schauen, ob mind. 2 devs abgestimmt haben

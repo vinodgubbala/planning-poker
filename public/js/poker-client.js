@@ -41,7 +41,7 @@ $('.poker-logout').logout({
     lsUserKey: options.lsUserKey
 });
 
-$('.poker-cards').cardselection({
+$('.poker-cards .poker-card').cardselection({
     lsUserKey: options.lsUserKey,
     selectedClass: 'poker-card-selected',
     pokerCardBackClass: '.poker-card-back'

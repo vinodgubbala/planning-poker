@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><%= __('title') %> | inovex GmbH</title>
+	<title><%= __('title') %> | vemo</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css" />
 	<script type="text/javascript" src="js/jquery/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="js/string-functions.js"></script>
@@ -15,8 +15,28 @@
 	<script type="text/javascript" src="js/jquery/modules/jquery.userstory.js"></script>
 	<script type="text/javascript" src="js/jquery/modules/jquery.carddisplay.js"></script>
 	<script type="text/javascript" src="js/jquery/modules/jquery.WebSocket.js"></script>
+	<script type="text/javascript" src="js/jquery/modules/jquery.donate.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<!--base href="<%= web.protocol %>://<%= web.address %>:<%= web.port %>"></base-->
+	<meta content="user-scalable=0" name="viewport" />
+	<link rel="shortcut icon" href="img/vemo-logo.png" type="image/x-icon">
+	<meta name="title" content="<%= __('title') %> | vemo">
+	<meta name="description" content="Play planning poker for free for your scrum team. Add ?room=TeamName to play at your own arena">
+	<meta name="keywords" content="planningpoker, scrum, agile, grooming, sizing">
+	<meta name="robots" content="index, follow">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="language" content="English">
+	<meta name="revisit-after" content="5 days">
+	<meta name="author" content="vinodgubbala">
+
+	<meta name="og:title" content="<%= __('title') %> | vemo"/>
+	<meta name="og:type" content="website"/>
+	<meta name="og:url" content="http://planning-poker.vemo.in/"/>
+	<meta name="og:image" content="http://planning-poker.vemo.in/img/vemo-logo.png"/>
+	<meta name="og:site_name" content="vemo"/>
+	<meta name="og:description" content="Play planning poker for free for your scrum team. Add ?room=TeamName to play at your own arena"/>
+
+
 </head>
 
 <body>
@@ -122,9 +142,18 @@
 
 	<footer class="poker-footer">
 		<div class="poker-content">
-			<b>&copy; 2019 SumTotal (War Machine)</b> - Developed by Vinod Gubbala (vdgubbala)
+			<span class="help">Add ?room=TeamName to URL for sandboxing your sizing</span>
+			<b>&copy; 2019 vemo</b>
 		</div>
+		<a href="#" class="donate">Donate</a>
 	</footer>
+	<div class="donate-popup hide">
+		<div class="donate-popup-content">
+			<div class="upi"></div>
+			<a class="buy-me-coffee" target="_blank" href="https://www.buymeacoffee.com/vemo"></a>
+			<button class="close">x</button>
+		</div>
+	</div>
 	<script type="text/javascript">
 		var i18n = {
 			'room-reset-confirm': '<%= __("room-reset-confirm") %>',
